@@ -20,6 +20,11 @@ app.use( session({
 app.use( checkForSession );
 app.use( express.static( `${__dirname}/build` ) );
 
+app.use( ( req, res, next) => {
+   console.log( 'req.session:', req.session) 
+   next();
+})
+
 app.get( '/api/swag', swag_controller.read );
 
 app.post( '/api/login', auth_controller.login );
@@ -33,5 +38,5 @@ app.delete( '/api/cart', cart_controller.delete );
 
 app.get( '/api/search', search_controller.search );
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 app.listen( port, () => { console.log(`Server listening on port ${port}.`); } );
